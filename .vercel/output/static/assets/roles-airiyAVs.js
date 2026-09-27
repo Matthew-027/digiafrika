@@ -1,0 +1,1 @@
+var e={admin:`/dashboard/admin`,vendor:`/dashboard/vendor`,affiliate:`/dashboard/affiliate`},t={admin:`Admin Dashboard`,vendor:`Vendor Dashboard`,affiliate:`Affiliate Dashboard`};export{t as n,e as t};

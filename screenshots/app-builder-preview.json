@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "DigiAfrika",
+      "hasCanvas": false,
+      "bodyTextLen": 1811,
+      "bodyTextHash": "6452a34d5173dc5517fb448c523f2791302d65ddeeaf8561b208aed13acddbcc",
+      "bodyTextPrefix": "DigiAfrika Marketplace How it works For vendors AFRICA’S AFFILIA",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "DigiAfrika",
+      "hasCanvas": false,
+      "bodyTextLen": 1784,
+      "bodyTextHash": "ca9c867fc69a32a094396adf1e1b7f82ec95c63db4606cd3a144a8fe0f33e212",
+      "bodyTextPrefix": "DigiAfrika Open menu AFRICA’S AFFILIATE DESK Promote digital pro",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

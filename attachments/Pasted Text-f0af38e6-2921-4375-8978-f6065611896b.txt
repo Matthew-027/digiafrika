@@ -1,0 +1,236 @@
+We are continuing the DigiAfrika rebuild.
+
+STEP 1 (Admin Foundation) has been completed and tested. Do NOT redo Step 1 unless you find a security issue that directly affects this step.
+
+Now work ONLY on STEP 2: USER ROLES AND ACCOUNT SEPARATION.
+
+DigiAfrika is a real multi-vendor affiliate marketplace similar in concept to Stakecut, EarnersPay and Promptearn.
+
+The platform must have exactly three main account roles:
+
+1. ADMIN
+2. VENDOR
+3. AFFILIATE
+
+IMPORTANT:
+Do not build advanced vendor or affiliate features yet. The purpose of this step is to establish a clean and secure role system that future features can use.
+
+Requirements:
+
+1. Database roles
+
+Review the existing database/schema and make sure each user profile has a proper role.
+
+Use the existing profile/user structure where possible instead of creating unnecessary duplicate systems.
+
+The role must clearly identify:
+
+- admin
+- vendor
+- affiliate
+
+Do not rely only on frontend/localStorage state to determine a user's role.
+
+Role authorization must be enforced server-side.
+
+2. Admin
+
+Admin must have access to the platform administration area.
+
+Admin must NOT be treated as a vendor or affiliate simply because they have access to the admin dashboard.
+
+Keep the secure admin authorization system from Step 1.
+
+Do not allow users to select "Admin" during normal registration.
+
+3. Vendor
+
+A Vendor account should be able to enter the Vendor area/dashboard.
+
+A Vendor must NOT be able to:
+
+- access Admin dashboard
+- view admin-only data
+- manage platform-wide users
+- manage platform-wide settings
+- process platform-wide payouts
+- access another vendor's private data
+
+If a Vendor manually enters an admin URL, return Access Denied.
+
+4. Affiliate
+
+An Affiliate account should be able to enter the Affiliate area/dashboard.
+
+An Affiliate must NOT be able to:
+
+- access Admin dashboard
+- access Vendor dashboard
+- view vendor-private data
+- edit vendor products
+- manage other users
+- access platform settings
+
+If an Affiliate manually enters an admin or vendor URL, return Access Denied.
+
+5. Registration/onboarding
+
+Review the current registration/onboarding flow.
+
+Do NOT allow a normal user to register themselves as Admin.
+
+For normal users, provide a safe role selection/onboarding flow for:
+
+- "I want to sell products" → Vendor
+- "I want to promote products and earn commissions" → Affiliate
+
+If the existing onboarding already has role selection, improve it instead of creating a duplicate system.
+
+Admin creation must remain controlled by the secure mechanism from Step 1.
+
+6. Route protection
+
+Create/review server-side protection for role-specific routes.
+
+At minimum:
+
+/dashboard/admin → Admin only
+
+/dashboard/vendor → Vendor only
+
+/dashboard/affiliate → Affiliate only
+
+If the current project uses different route names, preserve the existing structure where practical, but make the authorization rules clear.
+
+Frontend navigation must also reflect the user's role.
+
+For example:
+
+Admin sees:
+
+- Admin Dashboard
+
+Vendor sees:
+
+- Vendor Dashboard
+
+Affiliate sees:
+
+- Affiliate Dashboard
+
+Do not rely on hiding navigation as the security mechanism. Direct URL access must also be protected server-side.
+
+7. Data isolation
+
+Review database queries involving users, products/campaigns, clicks, conversions, commissions and payouts.
+
+Do not allow a Vendor to retrieve another Vendor's private information.
+
+Do not allow an Affiliate to retrieve another Affiliate's private information.
+
+Do not expose Admin-only records to normal users.
+
+Use the existing database/security architecture where possible rather than unnecessarily rewriting the whole application.
+
+8. Existing functionality
+
+Do not break:
+
+- login
+- logout
+- registration
+- existing Admin access from Step 1
+- existing Affiliate functionality
+- existing Vendor functionality
+
+If the existing Vendor/Affiliate dashboards are incomplete, leave their advanced features for later steps.
+
+9. Security
+
+Check for:
+
+- client-side-only role checks
+- role values that can be freely modified by users
+- hard-coded role bypasses
+- URL-based authorization bypasses
+- exposed admin information
+- insecure database queries
+
+Fix any issues directly related to role separation.
+
+Do NOT create a hidden backdoor for testing.
+
+10. UI
+
+Keep the existing DigiAfrika visual design.
+
+Do not redesign the entire website.
+
+Only make UI changes necessary to clearly distinguish:
+
+- Admin
+- Vendor
+- Affiliate
+
+11. Testing
+
+After implementation, test these scenarios:
+
+TEST A — ADMIN
+
+1. Login as Admin.
+2. Admin dashboard works.
+3. Vendor dashboard should not be presented as the Admin's normal dashboard.
+4. Affiliate dashboard should not be presented as the Admin's normal dashboard.
+
+TEST B — VENDOR
+
+1. Login as Vendor.
+2. Vendor dashboard works.
+3. Admin link is not visible.
+4. Direct access to /dashboard/admin is denied.
+5. Vendor cannot access another vendor's private data.
+
+TEST C — AFFILIATE
+
+1. Login as Affiliate.
+2. Affiliate dashboard works.
+3. Admin link is not visible.
+4. Direct access to /dashboard/admin is denied.
+5. Direct access to /dashboard/vendor is denied.
+6. Affiliate cannot access another affiliate's private data.
+
+TEST D — ROLE TAMPERING
+Try changing the role from the browser/client side or manipulating requests.
+
+The server must still enforce the real role stored/validated securely on the backend.
+
+IMPORTANT
+
+Do not move to Step 3 yet.
+
+Do not build:
+
+- vendor product creation
+- affiliate applications
+- advanced marketplace filters
+- checkout
+- commission system
+- payout system
+- advanced analytics
+
+Those will come later.
+
+At the end, report:
+
+1. What files you changed.
+2. What database/schema changes you made.
+3. How the three roles are represented.
+4. How server-side authorization works.
+5. What routes are protected.
+6. How a user becomes Vendor or Affiliate.
+7. How Admin creation remains protected.
+8. Exact steps I should use in Preview to test all three roles.
+9. Any issues that still need to be addressed.
+
+Finish Step 2 only. Do not start Step 3.

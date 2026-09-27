@@ -1,0 +1,1 @@
+import{a as e,t}from"./useNavigate-B5h6rNpz.js";import{n}from"./dash-context-DuZuSI81.js";import{t as r}from"./roles-airiyAVs.js";var i=e();function a(){let{data:e}=n();return(0,i.jsx)(t,{to:r[e.profile.deskRole]})}export{a as component};

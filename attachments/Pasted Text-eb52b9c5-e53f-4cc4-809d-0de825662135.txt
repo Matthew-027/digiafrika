@@ -1,0 +1,326 @@
+We are continuing the DigiAfrika rebuild.
+
+STEP 1 (Admin Foundation) and STEP 2 (User Roles & Account Separation) are completed.
+
+Now work ONLY on STEP 3: VENDOR ONBOARDING AND VERIFICATION.
+
+DigiAfrika is a real multi-vendor affiliate marketplace similar in concept to Stakecut, EarnersPay and Promptearn.
+
+The goal of this step is to create a proper Vendor onboarding and verification system before we build Vendor product creation.
+
+Do NOT build the full product creation system yet.
+
+1. Vendor profile
+
+Create/review a dedicated Vendor profile structure using the existing database architecture where possible.
+
+A Vendor profile should be able to contain appropriate business information such as:
+
+- Business/store name
+- Business description
+- Country
+- Contact information
+- Business category
+- Website/social link (optional)
+- Vendor status
+- Verification status
+- Date submitted
+- Date approved/rejected
+
+Do not collect unnecessary sensitive information at this stage.
+
+Do not request bank account details, BVN, passwords, payment credentials or other highly sensitive financial information yet.
+
+2. Vendor status
+
+Create a clear Vendor onboarding status system.
+
+At minimum support:
+
+- INCOMPLETE
+- PENDING_REVIEW
+- APPROVED
+- REJECTED
+- SUSPENDED
+
+Use the existing database conventions where possible.
+
+The status must be stored server-side.
+
+Do not rely on frontend state for verification.
+
+3. Vendor onboarding flow
+
+After a user chooses the Vendor role, they should be guided through Vendor onboarding.
+
+The basic flow should be:
+
+Vendor registration/login
+→ Vendor profile setup
+→ Submit application
+→ Pending Review
+→ Admin reviews
+→ Approved OR Rejected
+
+A Vendor should not automatically become a verified/approved Vendor simply because they selected the Vendor role.
+
+4. Admin review
+
+Add a simple Vendor verification/review area to the existing Admin dashboard.
+
+Do not redesign the entire Admin dashboard.
+
+Admin should be able to see:
+
+- Vendor name
+- Email/account identifier
+- Business/store name
+- Country
+- Business category
+- Application date
+- Current status
+
+Admin should be able to:
+
+- Approve Vendor
+- Reject Vendor
+- Suspend Vendor
+
+If rejecting a Vendor, allow an optional reason.
+
+If suspending a Vendor, allow an optional reason.
+
+Store these actions server-side.
+
+5. Vendor permissions
+
+Before approval:
+
+A Vendor may:
+
+- complete/edit their onboarding information
+- view their application status
+- see whether their application is pending, approved or rejected
+
+A Vendor must NOT be able to:
+
+- publish products
+- create active affiliate offers
+- recruit/manage affiliates
+- access another Vendor's data
+- access Admin functions
+
+After approval:
+
+The Vendor should gain access to the Vendor area required for future product-management features.
+
+Do NOT build those advanced product features yet.
+
+If a Vendor is suspended, prevent them from performing Vendor activities that should require an active Vendor account.
+
+6. Rejected applications
+
+If an application is rejected:
+
+- Show the Vendor that the application was rejected.
+- Display the rejection reason if one was provided.
+- Allow the Vendor to update their information and resubmit if appropriate.
+
+Do not automatically approve resubmissions.
+
+A new submission should return to PENDING_REVIEW.
+
+7. Admin security
+
+Only authorized Admin users from Step 1 can:
+
+- view Vendor applications
+- approve Vendors
+- reject Vendors
+- suspend Vendors
+
+A Vendor or Affiliate must never be able to call these actions directly through a manipulated URL/request.
+
+All authorization must be enforced server-side.
+
+8. Vendor data isolation
+
+A Vendor should only be able to retrieve and edit their own Vendor profile.
+
+For example:
+
+Vendor A must NOT be able to modify Vendor B's profile by changing an ID in a request.
+
+Use the authenticated user's identity on the server to enforce ownership.
+
+Do not trust a user-supplied vendor_id alone.
+
+9. Notifications
+
+Add basic notifications for Vendor onboarding events if the existing notification system can support it.
+
+At minimum:
+
+- Application submitted
+- Application approved
+- Application rejected
+- Vendor suspended
+
+If the existing notification system is not ready, create the database/event structure needed for future notifications rather than building a complicated notification system now.
+
+10. Vendor dashboard
+
+Update the Vendor dashboard so the Vendor can clearly see:
+
+- Onboarding/verification status
+- Store/business information
+- Next action required
+
+Examples:
+
+PENDING_REVIEW:
+"Your Vendor application is currently under review."
+
+APPROVED:
+"Your Vendor account has been approved."
+
+REJECTED:
+"Your Vendor application was rejected. Review the reason and update your information."
+
+SUSPENDED:
+"Your Vendor account is currently suspended."
+
+Keep the current DigiAfrika design.
+
+Do not create the full Vendor dashboard yet.
+
+11. Admin dashboard
+
+Add a simple Vendor Applications/Verification section to Admin.
+
+Include basic filtering by status if easy to implement:
+
+- All
+- Pending
+- Approved
+- Rejected
+- Suspended
+
+Do not build advanced analytics.
+
+12. Database integrity
+
+Use proper relationships and constraints where appropriate.
+
+Avoid duplicate Vendor profiles for the same user.
+
+A user should have at most one active Vendor profile.
+
+Do not create unnecessary duplicate user tables.
+
+Use the existing profiles/user architecture from Steps 1 and 2.
+
+13. Security review
+
+Check for:
+
+- client-side-only approval status
+- users changing their own verification status
+- Vendors accessing other Vendors' profiles
+- Vendors calling Admin approval endpoints
+- insecure ID-based database queries
+- hidden frontend-only restrictions
+
+Fix issues found in this area.
+
+14. Do NOT build yet
+
+Do NOT build:
+
+- Product creation
+- Product editing
+- Product approval
+- Affiliate applications
+- Affiliate management
+- Checkout
+- Commission calculations
+- Wallet
+- Payouts
+- Advanced Vendor analytics
+- Payment gateway integration
+
+Those belong to later steps.
+
+15. Testing
+
+Test the complete flow:
+
+TEST A — NEW VENDOR
+
+1. Create/login as a Vendor.
+2. Complete Vendor onboarding.
+3. Submit application.
+4. Status becomes PENDING_REVIEW.
+5. Vendor cannot publish/create products yet.
+
+TEST B — ADMIN APPROVAL
+
+1. Login as Admin.
+2. Open Vendor Applications.
+3. See the pending Vendor.
+4. Approve the Vendor.
+5. Vendor status becomes APPROVED.
+
+TEST C — APPROVED VENDOR
+
+1. Login as the approved Vendor.
+2. Confirm the dashboard shows APPROVED.
+3. Confirm Vendor-only access works.
+4. Confirm Admin remains inaccessible.
+
+TEST D — REJECTION
+
+1. Create another Vendor application.
+2. Reject it from Admin.
+3. Add a rejection reason.
+4. Confirm Vendor can see the rejection.
+5. Confirm Vendor can edit and resubmit.
+6. Confirm resubmission returns to PENDING_REVIEW.
+
+TEST E — SUSPENSION
+
+1. Admin suspends an approved Vendor.
+2. Vendor sees SUSPENDED status.
+3. Vendor cannot perform activities that require an active Vendor account.
+
+TEST F — SECURITY
+
+Try manipulating Vendor IDs and requests.
+
+Vendor A must not be able to access or modify Vendor B's data.
+
+A Vendor must not be able to approve themselves.
+
+An Affiliate must not be able to access Vendor verification functions.
+
+IMPORTANT
+
+Do not move to Step 4.
+
+Do not build Product Creation yet.
+
+Finish ONLY Vendor Onboarding and Verification.
+
+At the end, report:
+
+1. Files changed.
+2. Database/schema changes.
+3. Vendor status system.
+4. Vendor onboarding flow.
+5. Admin approval/rejection/suspension mechanism.
+6. Protected routes/endpoints.
+7. How Vendor data ownership is enforced.
+8. Exact Preview testing steps.
+9. Any remaining issues.
+
+Do not start Step 4 until this step is complete.

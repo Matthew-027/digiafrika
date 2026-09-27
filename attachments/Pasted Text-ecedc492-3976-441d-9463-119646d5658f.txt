@@ -1,0 +1,44 @@
+We are rebuilding DigiAfrika step by step as a real multi-vendor affiliate marketplace similar in concept to Stakecut, EarnersPay and Promptearn.
+
+START WITH ONLY THE ADMIN FOUNDATION. Do not redesign or rebuild unrelated parts yet.
+
+Review the existing codebase and fix the admin authentication and authorization system.
+
+Requirements:
+
+1. Keep the existing "/dashboard/admin" route if it already exists.
+
+2. Make sure I, as the DigiAfrika platform owner, can securely access the admin dashboard.
+
+3. Do NOT make the first person who signs up automatically become admin. That is not safe for a real production platform.
+
+4. Create a proper platform-owner/admin authorization mechanism using the existing database structure where possible.
+
+5. Admin authorization must be checked server-side. Hiding the Admin link in the frontend is not sufficient.
+
+6. A normal Affiliate must not be able to access admin data by manually entering "/dashboard/admin".
+
+7. A normal Vendor must not be able to access admin data by manually entering "/dashboard/admin".
+
+8. The Admin link should appear in the dashboard navigation only for authorized administrators.
+
+9. If an unauthorized user attempts to access the admin route, show a proper Access Denied page instead of exposing any admin information.
+
+10. Do not create a public admin registration page, admin password in frontend code, client-side admin bypass, or hard-coded secret visible to users.
+
+11. Keep the existing Affiliate and Vendor functionality working.
+
+12. For now, the Admin dashboard only needs to have the existing admin functions working. Do NOT yet build the complete advanced admin dashboard.
+
+13. Remove or disable any demo/admin shortcuts that could allow an ordinary user to simulate admin access.
+
+14. After making the changes, clearly explain:
+
+- Which files you changed
+- How admin authorization now works
+- How I can make my account the platform owner/admin
+- The exact URL I should open in Preview
+- How I can test Affiliate, Vendor and Admin access separately
+
+IMPORTANT:
+Do not move to the next DigiAfrika feature yet. Finish and test the admin foundation first.

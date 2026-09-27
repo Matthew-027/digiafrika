@@ -1,0 +1,459 @@
+We are continuing the DigiAfrika rebuild.
+
+STEP 1 — Admin Foundation: COMPLETED
+STEP 2 — User Roles & Account Separation: COMPLETED
+STEP 3 — Vendor Onboarding & Verification: COMPLETED
+STEP 4 — Product/Offer Creation: COMPLETED
+
+Now work ONLY on STEP 5: AFFILIATE MARKETPLACE.
+
+DigiAfrika is a real multi-vendor affiliate marketplace similar in concept to Stakecut, EarnersPay and Promptearn.
+
+The purpose of this step is to create a proper marketplace where Affiliates can discover and inspect APPROVED products/offers from Vendors.
+
+IMPORTANT:
+
+Do NOT build affiliate links, click tracking, conversions, checkout, commissions, wallet or payouts yet.
+
+Those belong to later steps.
+
+---
+
+1. Marketplace page
+
+Create or improve the Affiliate Marketplace.
+
+The marketplace should display only products that are:
+
+- APPROVED
+- Active
+- Owned by an approved/active Vendor
+
+Do NOT display:
+
+- Draft products
+- Pending products
+- Rejected products
+- Suspended products
+- Products belonging to suspended Vendors
+
+Enforce these visibility rules server-side.
+
+Do not rely only on frontend filtering.
+
+---
+
+2. Product cards
+
+Each marketplace product card should provide useful information such as:
+
+- Product image
+- Product name
+- Short description
+- Category
+- Product type
+- Price
+- Currency
+- Commission information
+- Vendor/store name
+- Relevant status information
+
+Keep the design clean and consistent with the existing DigiAfrika design.
+
+Do not show private Vendor information.
+
+---
+
+3. Product details page
+
+Create/review a dedicated product/offer details page.
+
+An Affiliate should be able to open an approved product and see:
+
+- Product name
+- Product image
+- Full description
+- Product type
+- Price
+- Currency
+- Commission type
+- Commission amount/percentage
+- Vendor/store name
+- Important promotional information
+- Any available product/affiliate terms
+
+The page should clearly explain what the product is before an Affiliate decides whether to promote it.
+
+Do not expose:
+
+- Vendor private contact information
+- Vendor private settings
+- Admin information
+- Internal database IDs unnecessarily
+- Private financial information
+
+---
+
+4. Marketplace search
+
+Add a search function so Affiliates can search available products.
+
+Search should be able to find products by relevant fields such as:
+
+- Product name
+- Category
+- Description
+- Product type
+
+Use server-side/database search where appropriate.
+
+Do not load the entire database into the browser just to perform filtering.
+
+---
+
+5. Marketplace categories
+
+Allow Affiliates to browse products by category.
+
+Use the existing category structure if one already exists.
+
+Examples could include:
+
+- Education
+- Business
+- Finance
+- Technology
+- Health & Fitness
+- Fashion
+- Lifestyle
+- Digital Products
+- Services
+
+Do not hard-code categories in multiple places.
+
+Use a maintainable category structure so Admin can eventually manage categories.
+
+Do not build advanced category management yet.
+
+---
+
+6. Basic filters
+
+Provide useful marketplace filters.
+
+At minimum consider:
+
+- Category
+- Product type
+- Price range
+- Commission type
+
+If practical, also allow sorting by:
+
+- Newest
+- Price
+- Commission
+
+Do not create complicated recommendation algorithms yet.
+
+---
+
+7. Affiliate-only marketplace actions
+
+Only authenticated Affiliates should receive Affiliate-specific actions.
+
+For example:
+
+- View offer
+- View commission information
+- Continue to future affiliate application/join process
+
+Vendors should not receive Affiliate-only marketplace actions.
+
+Admins can view/manage products through Admin tools but should not be treated as normal Affiliates.
+
+---
+
+8. Product ownership and security
+
+A Vendor must not be able to manipulate the marketplace request to expose:
+
+- another Vendor's private product data
+- rejected products
+- draft products
+- suspended products
+- internal Vendor information
+
+Only public/approved product information should be returned to the marketplace.
+
+Server-side authorization and database access rules must enforce this.
+
+---
+
+9. Vendor name/store display
+
+Where appropriate, display the Vendor's public store/business name.
+
+Do not expose private Vendor onboarding information.
+
+For example:
+
+GOOD:
+
+"Digital Skills Hub"
+
+NOT:
+
+Vendor's private email
+Vendor's private phone
+Vendor verification notes
+Vendor internal ID
+
+---
+
+10. Product availability
+
+If an approved product later becomes:
+
+- Suspended
+- Deleted
+- Unpublished
+- Owned by a suspended Vendor
+
+it should stop appearing as an active marketplace offer.
+
+Do not rely on cached frontend data to keep it active.
+
+The server/database should determine whether an offer is currently available.
+
+---
+
+11. Empty states
+
+Create useful states for:
+
+- No products yet
+- No search results
+- No products in selected category
+- Loading
+- Error loading marketplace
+
+Do not display fake products just to fill empty space.
+
+---
+
+12. Demo/fake data
+
+IMPORTANT:
+
+Review the current marketplace and remove/disable fake/demo products from the real marketplace flow.
+
+Do not present:
+
+- Fake sales
+- Fake affiliate counts
+- Fake earnings
+- Fake testimonials
+- Fake product popularity
+
+as real platform information.
+
+If development seed data is needed, clearly separate it from production data.
+
+---
+
+13. Marketplace performance
+
+Do not load every product into the browser at once.
+
+Prepare the marketplace for pagination or another scalable approach.
+
+For example:
+
+Page 1 → products 1–20
+Page 2 → products 21–40
+
+The exact number can be adjusted to the existing architecture.
+
+Use database queries efficiently.
+
+---
+
+14. Product status changes
+
+If Admin rejects or suspends a product:
+
+The marketplace should automatically stop treating it as an available offer.
+
+If Admin approves it:
+
+It can become available to Affiliates according to the marketplace visibility rules.
+
+Do not create a separate duplicate marketplace product record just to accomplish this.
+
+Use the existing product/offer model from Step 4.
+
+---
+
+15. Affiliate dashboard
+
+Add a simple Marketplace entry point to the Affiliate dashboard.
+
+For example:
+
+Affiliate Dashboard
+
+- Marketplace
+- My Applications (future)
+- My Links (future)
+- Clicks (future)
+- Sales (future)
+- Commissions (future)
+- Wallet (future)
+
+For now, only make the Marketplace functional.
+
+The other sections can remain placeholders if they already exist.
+
+Do not build those systems yet.
+
+---
+
+16. Vendor side
+
+Do not build new Vendor functionality in this step.
+
+The Vendor's responsibility remains:
+
+Create product
+→ Submit
+→ Admin review
+→ Approved product
+→ Product becomes eligible for Marketplace
+
+Do not add Affiliate management yet.
+
+---
+
+17. Admin side
+
+Do not redesign the Admin dashboard.
+
+Admin should continue to be able to manage product approval/rejection/suspension through the system created in Step 4.
+
+The marketplace should respect those Admin decisions.
+
+---
+
+18. Do NOT build yet
+
+Do NOT build:
+
+- Affiliate applications
+- Vendor approval of Affiliates
+- Affiliate links
+- Tracking links
+- Click tracking
+- Conversion tracking
+- Checkout
+- Payment gateway
+- Commission calculation engine
+- Wallet
+- Payouts
+- Refunds
+- Advanced analytics
+- Referral system
+
+Those will come later.
+
+---
+
+19. Security testing
+
+TEST A — APPROVED PRODUCT
+
+1. Create/verify an approved Vendor.
+2. Create/verify an approved product.
+3. Confirm the product appears in the Affiliate Marketplace.
+
+TEST B — UNAPPROVED PRODUCT
+
+1. Create a product that is DRAFT or PENDING_REVIEW.
+2. Confirm it does NOT appear in the marketplace.
+
+TEST C — REJECTED PRODUCT
+
+1. Reject a product from Admin.
+2. Confirm it disappears/is unavailable in the marketplace.
+
+TEST D — SUSPENDED PRODUCT
+
+1. Suspend an approved product.
+2. Confirm it is no longer available as an active marketplace offer.
+
+TEST E — SUSPENDED VENDOR
+
+1. Suspend the Vendor who owns an approved product.
+2. Confirm the Vendor's products are no longer treated as active marketplace offers.
+
+TEST F — SEARCH
+
+Search by product name, category and relevant description.
+
+Confirm results are correct.
+
+TEST G — SECURITY
+
+Attempt to manipulate product IDs or API requests to retrieve private, rejected, draft or suspended products.
+
+The server must deny inappropriate access.
+
+TEST H — ROLE SEPARATION
+
+Confirm:
+
+Affiliate → can browse marketplace.
+
+Vendor → cannot use Affiliate-only actions.
+
+Admin → retains Admin controls.
+
+Normal unauthorized users → cannot access protected Affiliate marketplace functionality if the marketplace is configured as authenticated-only.
+
+---
+
+20. Keep the design
+
+Keep the existing DigiAfrika visual identity:
+
+- Green
+- White
+- Black
+- Yellow accents
+
+Do not redesign the entire application.
+
+Make the marketplace look professional and scalable without adding unnecessary animations or visual complexity.
+
+---
+
+IMPORTANT
+
+Finish ONLY STEP 5.
+
+Do not start Step 6.
+
+At the end, report:
+
+1. Files changed.
+2. Database/schema changes.
+3. Marketplace route(s).
+4. Product visibility rules.
+5. Search/filter implementation.
+6. Product details implementation.
+7. Vendor/product data isolation.
+8. Demo data removed or isolated.
+9. Exact Preview testing steps.
+10. Any issues discovered.
+
+Do not proceed to Affiliate Applications/Approval until I give the instruction.

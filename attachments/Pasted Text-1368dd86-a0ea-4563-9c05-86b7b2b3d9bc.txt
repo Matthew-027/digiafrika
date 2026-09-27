@@ -1,0 +1,438 @@
+We are continuing the DigiAfrika rebuild.
+
+STEP 1 — Admin Foundation: COMPLETED
+STEP 2 — User Roles & Account Separation: COMPLETED
+STEP 3 — Vendor Onboarding & Verification: COMPLETED
+
+Now work ONLY on STEP 4: PRODUCT/OFFER CREATION.
+
+DigiAfrika is a real multi-vendor affiliate marketplace similar in concept to Stakecut, EarnersPay and Promptearn.
+
+The purpose of this step is to allow APPROVED VENDORS to create products/offers that can later be listed in the Affiliate Marketplace.
+
+Do NOT build affiliate applications, checkout, sales tracking, commissions, wallet or payouts yet.
+
+1. Product/Offer model
+
+Review the existing "campaigns" or equivalent product/offer table.
+
+If the existing "campaigns" table already serves as the product/offer model, extend it instead of unnecessarily creating a duplicate product table.
+
+A product/offer should support at least:
+
+- Product/offer ID
+- Vendor ID/owner
+- Product name
+- Short description
+- Full description
+- Product category
+- Product type
+- Product image/thumbnail
+- Price
+- Currency
+- Product status
+- Approval status
+- Commission type
+- Commission value
+- Created date
+- Updated date
+
+Use the existing database architecture where practical.
+
+2. Product types
+
+The system should be designed to eventually support different types of products, such as:
+
+- Digital product
+- Physical product
+- Service
+- Course
+- Software/tool
+- Subscription
+
+Do not build complicated delivery systems yet.
+
+For now, simply allow the product type to be stored correctly.
+
+3. Product pricing
+
+Do NOT make the new system permanently NGN-only.
+
+Use a structure such as:
+
+amount + currency
+
+rather than creating separate hard-coded fields for every country.
+
+Initially support common currencies needed by the platform, while keeping the architecture flexible for future African countries.
+
+Do not implement currency conversion yet.
+
+4. Commission settings
+
+Allow the Vendor to define the affiliate commission for the product.
+
+At minimum support:
+
+- Percentage commission
+- Fixed commission
+
+Example:
+
+Product price: $20
+Commission: 50%
+
+OR
+
+Product price: $20
+Commission: $8
+
+Do NOT calculate or pay commissions yet.
+
+This step only stores the offer rules.
+
+Design the database so future versions can support:
+
+- One-time commission
+- Recurring commission
+- Lifetime commission
+
+But do not build those advanced commission systems now.
+
+5. Product ownership
+
+Every product must belong to exactly one Vendor.
+
+A Vendor must only be able to:
+
+- create their own products
+- view their own products
+- edit their own products
+- submit their own products for review
+
+A Vendor must NOT be able to:
+
+- edit another Vendor's product
+- delete another Vendor's product
+- change another Vendor's commission
+- access another Vendor's private product information
+
+Do not trust a vendor_id supplied by the browser.
+
+Determine ownership server-side from the authenticated user.
+
+6. Vendor eligibility
+
+Only an APPROVED and ACTIVE Vendor can create or submit a product.
+
+These should NOT be allowed to create active products:
+
+- Affiliate accounts
+- Unapproved Vendors
+- Rejected Vendors
+- Suspended Vendors
+- Normal users without a Vendor role
+
+Enforce this server-side.
+
+7. Product status
+
+Create a clear product lifecycle.
+
+At minimum:
+
+DRAFT
+PENDING_REVIEW
+APPROVED
+REJECTED
+SUSPENDED
+
+Basic flow:
+
+Vendor creates product
+→ DRAFT
+
+Vendor submits product
+→ PENDING_REVIEW
+
+Admin approves
+→ APPROVED
+
+Admin rejects
+→ REJECTED
+
+Admin suspends an approved product
+→ SUSPENDED
+
+A rejected product should be editable by its Vendor and resubmittable.
+
+A suspended product should not be publicly available for promotion.
+
+8. Admin product review
+
+Add a simple Product/Offer Review section to the existing Admin dashboard.
+
+Admin should be able to see:
+
+- Product name
+- Vendor/store name
+- Product type
+- Price
+- Currency
+- Commission
+- Status
+- Submission date
+
+Admin should be able to:
+
+- Approve
+- Reject
+- Suspend
+
+For rejection/suspension, allow an optional reason.
+
+Only Admin can perform these actions.
+
+Do not build advanced product analytics yet.
+
+9. Vendor product dashboard
+
+Add/update the Vendor product area.
+
+The Vendor should be able to:
+
+- Create product
+- Save as draft
+- View own products
+- Edit own draft/rejected products
+- Submit product for review
+- See product status
+- See rejection reason if applicable
+
+Do not allow the Vendor to directly mark their product as APPROVED.
+
+10. Product form
+
+Create a clean Vendor product form containing the necessary fields.
+
+At minimum:
+
+Product name
+Category
+Product type
+Short description
+Full description
+Price
+Currency
+Commission type
+Commission value
+Product image
+Optional product URL/delivery information
+
+Validate:
+
+- Product name is required.
+- Description is required.
+- Price must be greater than zero.
+- Currency must be valid.
+- Commission must be valid.
+- Percentage commission cannot be below 0% or above 100%.
+- Fixed commission cannot be negative.
+- A product must have an owner.
+
+Do not collect unnecessary sensitive information.
+
+11. Product image
+
+Allow the Vendor to provide a product image using the project's existing upload/storage system if available.
+
+If the current project does not have a proper file-storage system yet, create a clean placeholder/storage abstraction rather than introducing an unnecessary third-party service.
+
+Do not store large image files directly in database rows.
+
+12. Product visibility
+
+Only APPROVED products should eventually appear publicly in the marketplace.
+
+DRAFT, PENDING_REVIEW, REJECTED and SUSPENDED products must not be publicly promoted as active offers.
+
+Do not build the full Affiliate Marketplace yet.
+
+Just establish the visibility rules so the next step can use them.
+
+13. Admin security
+
+Only authorized Admin users can:
+
+- approve products
+- reject products
+- suspend products
+- modify platform-level product settings
+
+Do not rely on hiding buttons in the frontend.
+
+Server-side authorization is required.
+
+14. Vendor security
+
+Test that Vendor A cannot manipulate a product ID to edit Vendor B's product.
+
+For every Vendor product action, verify:
+
+authenticated user
+→ Vendor role
+→ approved/active Vendor status
+→ product ownership
+
+before allowing the action.
+
+15. Affiliate access
+
+Do not build the full Affiliate Marketplace yet.
+
+However, make sure Affiliates cannot:
+
+- create products
+- edit products
+- approve products
+- change commissions
+- change product ownership
+
+The next step will give Affiliates proper marketplace access.
+
+16. Existing campaign compatibility
+
+IMPORTANT:
+
+Before changing the existing "campaigns" model, inspect how it is currently used by:
+
+- clicks
+- conversions
+- commissions
+- affiliate enrollment
+- marketplace pages
+- existing API/server functions
+
+Do not break existing functionality.
+
+If "campaigns" is already being used as the offer/product model, extend it carefully.
+
+If migration is required, preserve existing relationships.
+
+17. Remove fake/demo product behavior
+
+Review existing demo/seed data.
+
+Do not allow fake products, fake sales or "Simulate sale" functionality to become part of the real production flow.
+
+If demo functionality is needed for development, clearly isolate it from production behavior.
+
+Do not expose fake sales/statistics as real platform data.
+
+18. Do NOT build yet
+
+Do NOT build:
+
+- Affiliate product applications
+- Affiliate approval
+- Affiliate links
+- Click tracking changes
+- Checkout
+- Payment gateway integration
+- Real conversion tracking
+- Commission calculation engine
+- Wallet ledger
+- Payouts
+- Refunds
+- Advanced analytics
+
+Those belong to later steps.
+
+19. Testing
+
+TEST A — APPROVED VENDOR
+
+1. Login as approved Vendor.
+2. Create a product.
+3. Save it as DRAFT.
+4. Edit it.
+5. Submit it.
+6. Confirm status becomes PENDING_REVIEW.
+
+TEST B — ADMIN
+
+1. Login as Admin.
+2. Open Product/Offer Review.
+3. Find the submitted product.
+4. Approve it.
+5. Confirm status becomes APPROVED.
+
+TEST C — REJECTION
+
+1. Create another product.
+2. Submit it.
+3. Admin rejects it with a reason.
+4. Vendor sees rejection reason.
+5. Vendor edits it.
+6. Vendor resubmits it.
+7. Status returns to PENDING_REVIEW.
+
+TEST D — SUSPENSION
+
+1. Admin suspends an approved product.
+2. Product becomes SUSPENDED.
+3. Product is no longer publicly active.
+
+TEST E — OWNERSHIP SECURITY
+
+1. Create Vendor A and Vendor B.
+2. Vendor A creates Product A.
+3. Attempt to access/edit Product A using Vendor B's authenticated account.
+4. The server must deny the request.
+
+TEST F — ROLE SECURITY
+
+Confirm:
+
+Affiliate cannot create products.
+
+Unapproved Vendor cannot create active products.
+
+Suspended Vendor cannot create/submit products.
+
+Vendor cannot approve their own product.
+
+Only Admin can approve/reject/suspend products.
+
+20. Keep the design
+
+Keep the existing DigiAfrika visual identity.
+
+Do not redesign the entire application.
+
+Only add the UI necessary for:
+
+- Vendor product management
+- Admin product review
+
+IMPORTANT
+
+Finish ONLY STEP 4.
+
+Do not start Step 5.
+
+At the end, report:
+
+1. Files changed.
+2. Database/schema changes.
+3. Product/offer model.
+4. Product status lifecycle.
+5. Commission fields created.
+6. Vendor ownership/security implementation.
+7. Admin approval system.
+8. Product visibility rules.
+9. Existing campaign compatibility.
+10. Exact Preview testing steps.
+11. Any issues discovered.
+
+Do not proceed to Affiliate Marketplace until I give the instruction.

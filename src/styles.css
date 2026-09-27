@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Syne", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-ink: #121412;
+  --color-ink-soft: #1c241d;
+  --color-paper: #f4f0e6;
+  --color-paper-2: #ebe6d6;
+  --color-cream: #fbf8f0;
+  --color-forest: #146c3f;
+  --color-forest-deep: #0d3d24;
+  --color-leaf: #1f8a4c;
+  --color-gold: #e6b422;
+  --color-gold-deep: #c49212;
+  --color-line: color-mix(in oklab, #121412 12%, transparent);
+  --color-line-strong: color-mix(in oklab, #121412 22%, transparent);
+  --color-muted: #5c645c;
+  --color-danger: #b42318;
+  --color-ok: #146c3f;
+
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-cream);
+  --color-card-foreground: var(--color-ink);
+  --color-primary: var(--color-forest);
+  --color-primary-foreground: #fbf8f0;
+  --color-accent: var(--color-gold);
+  --color-accent-foreground: #121412;
+  --color-secondary: var(--color-paper-2);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted-bg: var(--color-paper-2);
+  --color-muted-foreground: var(--color-muted);
+  --color-border: var(--color-line);
+  --color-ring: var(--color-forest);
+  --color-destructive: var(--color-danger);
+  --color-input: var(--color-line-strong);
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  --shadow-soft: 0 18px 40px -28px rgb(18 20 18 / 0.45);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+}
+
+@layer utilities {
+  .kente-band {
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        var(--color-forest) 0 10px,
+        var(--color-gold) 10px 14px,
+        var(--color-ink) 14px 18px,
+        var(--color-paper) 18px 28px
+      );
+  }
+
+  .dash-shell {
+    --color-background: #0e1611;
+    --color-foreground: #f4f0e6;
+    --color-card: #152019;
+    --color-card-foreground: #f4f0e6;
+    --color-primary: #2aa35c;
+    --color-primary-foreground: #08110c;
+    --color-accent: #e6b422;
+    --color-accent-foreground: #121412;
+    --color-secondary: #1c2a21;
+    --color-secondary-foreground: #f4f0e6;
+    --color-muted-bg: #1a241d;
+    --color-muted-foreground: #a8b4aa;
+    --color-border: color-mix(in oklab, #f4f0e6 12%, transparent);
+    --color-line: color-mix(in oklab, #f4f0e6 12%, transparent);
+    --color-line-strong: color-mix(in oklab, #f4f0e6 22%, transparent);
+    --color-ink: #f4f0e6;
+    --color-paper: #0e1611;
+    --color-cream: #152019;
+    --color-muted: #a8b4aa;
+    background: #0e1611;
+    color: #f4f0e6;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

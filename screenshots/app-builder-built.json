@@ -1,0 +1,41 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "DigiAfrika",
+      "hasCanvas": false,
+      "bodyTextLen": 2575,
+      "bodyTextHash": "a99004e109bfb606ca0feb6e444f6d2f9d85ff146b0996c1cab9a1108b9fb803",
+      "bodyTextPrefix": "DigiAfrika Marketplace How it works For vendors Sign in Join fre",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "DigiAfrika",
+      "hasCanvas": false,
+      "bodyTextLen": 2530,
+      "bodyTextHash": "71c39f352cf1d7cd5c2aa18188052d2a987e220050b60c384551051432cb1b1c",
+      "bodyTextPrefix": "DigiAfrika Open menu AFRICA’S AFFILIATE DESK Promote digital pro",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": true,
+  "baselineReasons": [
+    "desktop: body text changed (1811 -> 2575 chars, hash mismatch)",
+    "mobile: body text changed (1784 -> 2530 chars, hash mismatch)"
+  ]
+}
